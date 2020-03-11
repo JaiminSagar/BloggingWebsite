@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Blog</title>
+    {#        Bootstrap                #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {#        Medium Style Editor      #}
+        {#    Usefull links    #}
+            {#      https://medium.com/      #}
+            {#      https://github.com/yabwe/medium-editor      #}
+        <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    {#        Custom CSS               #}
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    {#        Google Fonts             #}
+        <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Gloria+Hallelujah&family=Satisfy&display=swap" rel="stylesheet">
+    {#    Icons    #}
+{#        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">#}
+{#        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />#}
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body class="loader">
+    {#        NAVBAR           #}
+        <nav class="navbar navbar-expand-sm navbar-light bg-light navbar-custom techfont">
+            <a class="navbar-brand bigbrand" href="{% url 'blog:post_list' %}">My Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="{% url 'blog:about' %}">about</a>
+                    <a class="nav-item nav-link" href="https://github.com/">GitHub</a>
+                    <a class="nav-item nav-link" href="https://www.linkedin.com/">LinkIn</a>
+
+                </div>
+
+                <div class="navbar-nav navbar-right ml-auto">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'blog:post_new' %}">New Post</a>
+                        <a class="nav-item nav-link" href="{% url 'blog:post_draft_list' %}">Drafts</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+                        <a class="nav-item" href="#">Welcome: {{ user.username }}</a>
+                        {% else %}
+                        <a class="nav-item nav-link navbar-right" href="{% url 'login' %}"><i class="material-icons">perm_identity</i></a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </nav>
+    {#        CONTENT BLOCK    #}
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="blog_posts">
+                        {% block content %}
+{#                            contents #}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
